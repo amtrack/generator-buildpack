@@ -7,49 +7,56 @@ var chalk = require('chalk');
 
 var BuildpackGenerator = yeoman.generators.Base.extend({
   init: function () {
-    this.pkg = yeoman.file.readJSON(path.join(__dirname, '../package.json'));
-
-    this.on('end', function () {
-      if (!this.options['skip-install']) {
-        this.npmInstall();
-      }
-    });
   },
 
   askFor: function () {
     var done = this.async();
 
-    // have Yeoman greet the user
-    console.log(this.yeoman);
+    // try to guess name
+    this.projectname = path.basename(process.cwd());
+    this.name = this.appname.replace('heroku', '').replace('buildpack', '').replace(/\s/g, '');
 
     // replace it with a short and sweet description of your generator
     console.log(chalk.magenta('You\'re using the fantastic Buildpack generator.'));
 
-    var prompts = [{
-      type: 'confirm',
-      name: 'someOption',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
+    var prompts = [
+    {
+      type: 'text',
+      name: 'name',
+      message: 'name',
+      default: this.name
+    },
+    {
+      type: 'text',
+      name: 'username',
+      message: 'GitHub Username',
+      default: 'username'
+    }
+    ];
 
     this.prompt(prompts, function (props) {
-      this.someOption = props.someOption;
-
+      this.username = props.username;
+      this.name = props.name || this.name;
+      this.url = 'https://github.com/'+this.username+'/'+this.projectname;
       done();
     }.bind(this));
   },
 
   app: function () {
-    this.mkdir('app');
-    this.mkdir('app/templates');
+    this.mkdir('bin');
+    this.template('bin/compile');
+    this.template('bin/detect');
+    this.template('bin/release');
+    this.template('bin/test');
+    this.template('bin/utils');
 
-    this.copy('_package.json', 'package.json');
-    this.copy('_bower.json', 'bower.json');
+    this.directory('test', 'test');
+    this.directory('vendor', 'vendor');
   },
 
   projectfiles: function () {
-    this.copy('editorconfig', '.editorconfig');
-    this.copy('jshintrc', '.jshintrc');
+    this.template('README.md');
+    this.copy('.travis.yml', '.travis.yml');
   }
 });
 

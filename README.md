@@ -1,27 +1,9 @@
 # generator-buildpack [![Build Status](https://secure.travis-ci.org/amtrack/generator-buildpack.png?branch=master)](https://travis-ci.org/amtrack/generator-buildpack)
 
-> [Yeoman](http://yeoman.io) generator
+> [Yeoman](http://yeoman.io) generator for creating a custom [Heroku buildpack](http://devcenter.heroku.com/articles/buildpacks).
 
 
 ## Getting Started
-
-### What is Yeoman?
-
-Trick question. It's not a thing. It's this guy:
-
-![](http://i.imgur.com/JHaAlBJ.png)
-
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
-
-Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
-
-```
-$ npm install -g yo
-```
-
-### Yeoman Generators
-
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
 
 To install generator-buildpack from npm, run:
 
@@ -41,6 +23,9 @@ Yeoman has a heart of gold. He's a person with feelings and opinions, but he's v
 
 If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
 
+### Info
+
+Most of the stuff is stolen from [heroku/heroku-buildpack-nodejs](https://github.com/heroku/heroku-buildpack-nodejs) and [heroku/heroku-buildpack-python](https://github.com/heroku/heroku-buildpack-python)
 
 ## License
 
