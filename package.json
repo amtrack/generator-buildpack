@@ -1,6 +1,6 @@
 {
   "name": "generator-buildpack",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Heroku buildpack",
   "license": "MIT",
   "main": "app/index.js",
