@@ -26,19 +26,19 @@ var BuildpackGenerator = yeoman.generators.Base.extend({
     this.name = this.appname.replace('heroku', '').replace('buildpack', '').replace(/\s/g, '');
 
     // replace it with a short and sweet description of your generator
-    console.log(chalk.magenta('You\'re using the fantastic Buildpack generator.'));
+    console.log(chalk.magenta('Tell me about your custom Heroku buildpack.'));
 
     var prompts = [
     {
       type: 'text',
       name: 'name',
-      message: 'name',
+      message: 'Buildpack for',
       default: this.name
     },
     {
       type: 'text',
       name: 'username',
-      message: 'GitHub Username',
+      message: 'Your GitHub Username',
       default: 'username'
     }
     ];

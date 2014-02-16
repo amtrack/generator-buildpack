@@ -14,7 +14,12 @@ $ npm install -g generator-buildpack
 Finally, initiate the generator:
 
 ```
+$ mkdir heroku-buildpack-python
+$ cd heroku-buildpack-python
 $ yo buildpack
+Tell me about your custom Heroku buildpack.
+[?] Buildpack for: python
+[?] Your GitHub Username: amtrack
 ```
 
 The following files will be generated for you:
