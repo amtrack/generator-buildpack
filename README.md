@@ -1,4 +1,4 @@
-# generator-buildpack [![Build Status](https://secure.travis-ci.org/amtrack/generator-buildpack.png?branch=master)](https://travis-ci.org/amtrack/generator-buildpack)
+# generator-buildpack [![Build Status](https://secure.travis-ci.org/amtrack/generator-buildpack.png?branch=master)](https://travis-ci.org/amtrack/generator-buildpack) [![Build Status](https://drone.io/github.com/amtrack/generator-buildpack/status.png)](https://drone.io/github.com/amtrack/generator-buildpack/latest)
 
 > [Yeoman](http://yeoman.io) generator for creating a custom [Heroku buildpack](http://devcenter.heroku.com/articles/buildpacks).
 
