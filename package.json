@@ -4,12 +4,11 @@
   "description": "Heroku buildpack",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "amtrack/generator-buildpack",
-  "author": {
-    "name": "Matthias Rolke",
-    "email": "mr.amtrack@gmail.com",
-    "url": "https://github.com/amtrack"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/amtrack/generator-buildpack"
   },
+  "author": "Matthias Rolke <mr.amtrack@gmail.com> (https://github.com/amtrack)",
   "engines": {
     "node": ">=0.10.0"
   },
@@ -31,5 +30,12 @@
   },
   "peerDependencies": {
     "yo": ">=1.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/amtrack/generator-buildpack/issues"
+  },
+  "homepage": "https://github.com/amtrack/generator-buildpack",
+  "directories": {
+    "test": "test"
   }
 }
