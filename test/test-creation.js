@@ -19,6 +19,7 @@ describe('buildpack generator', function () {
 
   it('creates expected files', function (done) {
     var expected = [
+      // add files you expect to exist here.
       'bin/compile',
       'bin/detect',
       'bin/release',
@@ -29,9 +30,8 @@ describe('buildpack generator', function () {
     ];
 
     helpers.mockPrompt(this.app, {
-      // 'someOption': true
+      // 'name': 'hello'
     });
-    this.app.options['skip-install'] = true;
     this.app.run({}, function () {
       helpers.assertFile(expected);
       done();
