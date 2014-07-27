@@ -1,36 +1,73 @@
 #!/usr/bin/env bash
 
-error() {
-	echo " !     $*" >&2
+if [ $(uname) == Darwin ]; then
+	sed() { command sed -l "$@"; }
+else
+	sed() { command sed -u "$@"; }
+fi
+
+# Syntax sugar.
+indent() {
+  sed "s/^/       /"
+}
+
+# Buildpack Steps.
+puts-step() {
+	echo "-----> $@"
+}
+
+# Buildpack Warnings.
+puts-warn() {
+	echo " !     $@"
+}
+
+die() {
+	puts-warn "$*" >&2
 	exit 1
 }
 
-status() {
-	echo "-----> $*"
-}
-
-# sed -l basically makes sed replace and buffer through stdin to stdout
-# so you get updates while the command runs and dont wait for the end
-# e.g. npm install | indent
-indent() {
-	c='s/^/       /'
-	case $(uname) in
-		Darwin) sed -l "$c";; # mac/bsd sed: -l buffers on line boundaries
-		*)      sed -u "$c";; # unix/gnu sed: -u unbuffered (arbitrary) chunks of data
-	esac
-}
-
 # Usage: $ set-env key value
-function set-env (){
+set-env (){
 	echo "export $1=$2" >> $PROFILE_PATH
 }
 
 # Usage: $ set-default-env key value
-function set-default-env (){
+set-default-env (){
 	echo "export $1=\${$1:-$2}" >> $PROFILE_PATH
 }
 
 # Usage: $ set-default-env key value
-function un-set-env (){
+un-set-env (){
 	echo "unset $1" >> $PROFILE_PATH
+}
+
+# Does some serious copying.
+deep-cp() {
+	declare source="$1" target="$2"
+
+	mkdir -p "$target"
+
+	# cp doesn't like being called without source params,
+	# so make sure they expand to something first.
+	# subshell to avoid surprising caller with shopts.
+	(
+		shopt -s nullglob dotglob
+		set -- "$source"/!(tmp|.|..)
+		[[ $# == 0 ]] || cp -a "$@" "$target"
+	)
+}
+
+# Does some serious moving.
+deep-mv() {
+	deep-cp "$1" "$2"
+	deep-rm "$1"
+}
+
+# Does some serious deleting.
+deep-rm() {
+	# subshell to avoid surprising caller with shopts.
+	(
+		shopt -s dotglob
+		rm -rf "$1"/!(tmp|.|..)
+	)
 }

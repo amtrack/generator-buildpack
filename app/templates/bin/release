@@ -4,6 +4,10 @@
 #
 #     $ bin/release <build-dir>
 
+BUILD_DIR=$1
+
+BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
+
 cat << EOF
 ---
 default_process_types:
