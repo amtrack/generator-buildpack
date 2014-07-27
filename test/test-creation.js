@@ -25,8 +25,16 @@ describe('buildpack generator', function () {
       'bin/release',
       'bin/test',
       'bin/utils',
+      'test/hello-txt/hello.txt',
+      'test/no-hello-txt/.gitkeep',
+      'vendor/shunit2',
+      'vendor/test-utils',
       'README.md',
-      '.travis.yml'
+      '.travis.yml',
+      '.drone.yml',
+      'test-in-docker',
+      'Dockerfile',
+      '.dockerignore',
     ];
 
     helpers.mockPrompt(this.app, {

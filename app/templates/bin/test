@@ -1,39 +1,35 @@
 #!/usr/bin/env bash
 # See README.md for info on running these tests.
 
+testDetectWithoutHelloTxt() {
+	detect "no-hello-txt"
+	assertCapturedError 1 ""
+}
+
 testDetectWithHelloTxt() {
 	detect "hello-txt"
 	assertCaptured "<%= name %>"
 	assertCapturedSuccess
 }
 
-testDetectWithoutHelloTxt() {
-	detect "no-hello-txt"
-	assertCapturedError 1 ""
+testCompileSimple() {
+	compile "hello-txt"
+	assertCapturedSuccess
 }
 
-# testEnvDirNotImported() {
-# 	compile "hello-txt"
-# 	assertNotCaptured "Exporting config vars to environment"
-# 	assertCapturedSuccess
-# }
-
-# testEnvDirExported() {
-# 	env_dir=$(mktmpdir)
-# 	echo "chicken" > $env_dir/birds
-# 	echo "koi" > $env_dir/fish
-# 	compile "hello-txt" "$(mktmpdir)" $env_dir
-# 	assertCaptured "Exporting config vars to environment"
-# 	assertCapturedSuccess
-# }
+testReleaseSimple() {
+	release "hello-txt"
+	assertCaptured "default_process_types:"
+	assertCapturedSuccess
+}
 
 # Utils
 
 pushd $(dirname 0) >/dev/null
-bp_dir=$(pwd)
+BP_DIR=$(pwd)
 popd >/dev/null
 
-source "$bp_dir/vendor/test-utils/test-utils"
+source "$BP_DIR/vendor/test-utils"
 
 mktmpdir() {
 	dir=$(mktemp -t testXXXXX)
@@ -43,7 +39,7 @@ mktmpdir() {
 }
 
 detect() {
-	capture "$bp_dir/bin/detect" "$bp_dir/test/$1"
+	capture "$BP_DIR/bin/detect" "$BP_DIR/test/$1"
 }
 
 compile_dir=""
@@ -55,12 +51,16 @@ compile() {
 	else
 		cache_dir=$(mktmpdir)
 	fi
-	cp -r "$bp_dir/test/$1/." "$compile_dir"
-	capture "$bp_dir/bin/compile" "$compile_dir" "$cache_dir" "$3"
+	cp -r "$BP_DIR/test/$1/." "$compile_dir"
+	capture "$BP_DIR/bin/compile" "$compile_dir" "$cache_dir" "$3"
+}
+
+release() {
+	capture "$BP_DIR/bin/release" "$BP_DIR/test/$1"
 }
 
 assertFile() {
 	assertEquals "$1" "$(cat $compile_dir/$2)"
 }
 
-source "$bp_dir/vendor/shunit2/shunit2"
+source "$BP_DIR/vendor/shunit2"

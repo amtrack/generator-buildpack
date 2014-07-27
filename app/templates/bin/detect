@@ -4,8 +4,10 @@
 #
 #     $ bin/detect <build-dir>
 
+BUILD_DIR=$1
+
 # this pack is valid for apps with a hello.txt in the root
-if [ -f $1/hello.txt ]; then
+if [ -f $BUILD_DIR/hello.txt ]; then
 	echo "<%= name %>"
 	exit 0
 else

@@ -4,13 +4,20 @@ var path = require('path');
 var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
 var chalk = require('chalk');
-
+var fs = require('fs');
 
 var BuildpackGenerator = yeoman.generators.Base.extend({
   init: function () {
     this.pkg = require('../package.json');
 
     this.on('end', function () {
+      // temporary fix until https://github.com/SBoudrias/file-utils/issues/5 is fixed in yeoman
+      fs.chmodSync(path.join(this.destinationRoot(), 'bin/compile'), '755');
+      fs.chmodSync(path.join(this.destinationRoot(), 'bin/detect'), '755');
+      fs.chmodSync(path.join(this.destinationRoot(), 'bin/release'), '755');
+      fs.chmodSync(path.join(this.destinationRoot(), 'bin/test'), '755');
+      fs.chmodSync(path.join(this.destinationRoot(), 'bin/utils'), '755');
+      fs.chmodSync(path.join(this.destinationRoot(), 'test-in-docker'), '755');
     });
   },
 
@@ -62,6 +69,10 @@ var BuildpackGenerator = yeoman.generators.Base.extend({
   projectfiles: function () {
     this.template('README.md');
     this.copy('.travis.yml', '.travis.yml');
+    this.copy('.drone.yml', '.drone.yml');
+    this.template('test-in-docker');
+    this.template('Dockerfile');
+    this.copy('.dockerignore', '.dockerignore');
   }
 });
 
