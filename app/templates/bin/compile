@@ -11,6 +11,7 @@ ENV_DIR=$3
 BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
 ROOT_DIR=$(dirname $BIN_DIR)
 PROFILE_PATH="$BUILD_DIR/.profile.d/<%= name %>.sh"
+mkdir -p $(dirname $PROFILE_PATH)
 
 # Fail fast and fail hard.
 set -eo pipefail

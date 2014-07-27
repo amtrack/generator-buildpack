@@ -1,15 +1,26 @@
 #!/usr/bin/env bash
 # See README.md for info on running these tests.
 
+testDetectWithoutHelloTxt() {
+	detect "no-hello-txt"
+	assertCapturedError 1 ""
+}
+
 testDetectWithHelloTxt() {
 	detect "hello-txt"
 	assertCaptured "<%= name %>"
 	assertCapturedSuccess
 }
 
-testDetectWithoutHelloTxt() {
-	detect "no-hello-txt"
-	assertCapturedError 1 ""
+testCompileSimple() {
+	compile "hello-txt"
+	assertCapturedSuccess
+}
+
+testReleaseSimple() {
+	release "hello-txt"
+	assertCaptured "default_process_types:"
+	assertCapturedSuccess
 }
 
 # Utils
@@ -42,6 +53,10 @@ compile() {
 	fi
 	cp -r "$BP_DIR/test/$1/." "$compile_dir"
 	capture "$BP_DIR/bin/compile" "$compile_dir" "$cache_dir" "$3"
+}
+
+release() {
+	capture "$BP_DIR/bin/release" "$BP_DIR/test/$1"
 }
 
 assertFile() {

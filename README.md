@@ -2,6 +2,13 @@
 
 > [Yeoman](http://yeoman.io) generator for creating a custom [Heroku buildpack](http://devcenter.heroku.com/articles/buildpacks).
 
+## Features
+
+* Generates buildpack scripts `bin/detect`, `bin/compile` and `bin/release`
+* [shUnit2](https://code.google.com/p/shunit2) based test script `bin/test`
+* Comes with a wrapper script `test-in-docker` to run `bin/test` in a *cedar*-like environment ([progrium/cedarish](https://github.com/progrium/cedarish))
+* [Travis CI](https://travis-ci.org/) and [Drone](https://github.com/drone/drone) files
+
 
 ## Getting Started
 
@@ -14,45 +21,17 @@ $ npm install -g generator-buildpack
 Finally, initiate the generator:
 
 ```
-$ mkdir heroku-buildpack-python
-$ cd heroku-buildpack-python
+$ mkdir heroku-buildpack-hello
+$ cd $_
 $ yo buildpack
 Tell me about your custom Heroku buildpack.
-[?] Buildpack for: python
+[?] Buildpack for: hello
 [?] Your GitHub Username: amtrack
 ```
 
-The following files will be generated for you:
-
-```
-$ tree
-.
-├── README.md
-├── bin
-│   ├── compile
-│   ├── detect
-│   ├── release
-│   ├── test
-│   └── utils
-├── test
-│   └── hello-txt
-│       └── hello.txt
-└── vendor
-    ├── shunit2
-    │   └── shunit2
-    └── test-utils
-        └── test-utils
-```
-
-### Getting To Know Yeoman
-
-Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
-
-If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
-
 ### Info
 
-Most of the stuff is stolen from [heroku/heroku-buildpack-nodejs](https://github.com/heroku/heroku-buildpack-nodejs) and [heroku/heroku-buildpack-python](https://github.com/heroku/heroku-buildpack-python)
+Most of the stuff is stolen from the [Buildpack API documentation](https://devcenter.heroku.com/articles/buildpack-api) and [heroku/heroku-buildpack-python](https://github.com/heroku/heroku-buildpack-python)
 
 ## License
 

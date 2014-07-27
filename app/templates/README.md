@@ -37,22 +37,8 @@ heroku config:set BUILDPACK_URL=<your-github-url>#your-branch
 
 ## Testing
 
-[Anvil](https://github.com/ddollar/anvil) is a generic build server for Heroku.
-
 ```
-gem install anvil-cli
-```
-
-The [heroku-anvil CLI plugin](https://github.com/ddollar/heroku-anvil) is a wrapper for anvil.
-
-```
-heroku plugins:install https://github.com/ddollar/heroku-anvil
-```
-
-The [ddollar/test](https://github.com/ddollar/buildpack-test) buildpack runs `bin/test` on your app/buildpack.
-
-```
-heroku build -b ddollar/test # -b can also point to a local directory
+./test-in-docker
 ```
 
 For more info on testing, see [Best Practices for Testing Buildpacks](https://discussion.heroku.com/t/best-practices-for-testing-buildpacks/294) on the Heroku discussion forum.
