@@ -3,25 +3,14 @@ var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
-var chalk = require('chalk');
 var fs = require('fs');
 
 var BuildpackGenerator = yeoman.generators.Base.extend({
-  init: function () {
+  initializing: function () {
     this.pkg = require('../package.json');
-
-    this.on('end', function () {
-      // temporary fix until https://github.com/SBoudrias/file-utils/issues/5 is fixed in yeoman
-      fs.chmodSync(path.join(this.destinationRoot(), 'bin/compile'), '755');
-      fs.chmodSync(path.join(this.destinationRoot(), 'bin/detect'), '755');
-      fs.chmodSync(path.join(this.destinationRoot(), 'bin/release'), '755');
-      fs.chmodSync(path.join(this.destinationRoot(), 'bin/test'), '755');
-      fs.chmodSync(path.join(this.destinationRoot(), 'bin/utils'), '755');
-      fs.chmodSync(path.join(this.destinationRoot(), 'test-in-docker'), '755');
-    });
   },
 
-  askFor: function () {
+  prompting: function () {
     var done = this.async();
 
     // try to guess name
@@ -41,8 +30,8 @@ var BuildpackGenerator = yeoman.generators.Base.extend({
     {
       type: 'text',
       name: 'username',
-      message: 'Your GitHub Username',
-      default: 'username'
+      message: 'Would you mind telling me your username on GitHub',
+      default: 'someuser'
     }
     ];
 
@@ -54,25 +43,36 @@ var BuildpackGenerator = yeoman.generators.Base.extend({
     }.bind(this));
   },
 
-  app: function () {
-    this.mkdir('bin');
-    this.template('bin/compile');
-    this.template('bin/detect');
-    this.template('bin/release');
-    this.template('bin/test');
-    this.template('bin/utils');
+  writing: {
+    app: function () {
+      this.dest.mkdir('bin');
+      this.template('bin/compile');
+      this.template('bin/detect');
+      this.template('bin/release');
+      this.template('bin/test');
+      this.template('bin/utils');
+      this.directory('test', 'test');
+      this.directory('vendor', 'vendor');
+    },
 
-    this.directory('test', 'test');
-    this.directory('vendor', 'vendor');
+    projectfiles: function () {
+      this.template('README.md');
+      this.src.copy('.travis.yml', '.travis.yml');
+      this.src.copy('.drone.yml', '.drone.yml');
+      this.template('test-in-docker');
+      this.template('Dockerfile');
+      this.src.copy('.dockerignore', '.dockerignore');
+    }
   },
 
-  projectfiles: function () {
-    this.template('README.md');
-    this.copy('.travis.yml', '.travis.yml');
-    this.copy('.drone.yml', '.drone.yml');
-    this.template('test-in-docker');
-    this.template('Dockerfile');
-    this.copy('.dockerignore', '.dockerignore');
+  end: function () {
+    // temporary fix until https://github.com/SBoudrias/file-utils/issues/5 is fixed in yeoman
+    fs.chmodSync(path.join(this.destinationRoot(), 'bin/compile'), '755');
+    fs.chmodSync(path.join(this.destinationRoot(), 'bin/detect'), '755');
+    fs.chmodSync(path.join(this.destinationRoot(), 'bin/release'), '755');
+    fs.chmodSync(path.join(this.destinationRoot(), 'bin/test'), '755');
+    fs.chmodSync(path.join(this.destinationRoot(), 'bin/utils'), '755');
+    fs.chmodSync(path.join(this.destinationRoot(), 'test-in-docker'), '755');
   }
 });
 
