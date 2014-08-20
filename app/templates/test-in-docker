@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-docker build --force-rm -t buildpack-<%= name %> . 2&> /dev/null
+docker build -q --force-rm -t buildpack-<%= name %> . > /dev/null
+
 docker run -i -t --rm buildpack-<%= name %>
