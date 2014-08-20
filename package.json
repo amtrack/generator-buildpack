@@ -1,6 +1,6 @@
 {
   "name": "generator-buildpack",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Heroku buildpack",
   "license": "MIT",
   "main": "app/index.js",
@@ -10,7 +10,7 @@
   },
   "author": {
     "name": "Matthias Rolke",
-    "email": "mr.amtrack@gmail.com",
+    "email": "",
     "url": "https://github.com/amtrack"
   },
   "engines": {
@@ -26,8 +26,8 @@
     "yeoman-generator"
   ],
   "dependencies": {
-    "yeoman-generator": "~0.16.0",
-    "chalk": "~0.5.0",
+    "yeoman-generator": "^0.17.0",
+    "chalk": "^0.5.0",
     "yosay": "^0.3.0"
   },
   "devDependencies": {
@@ -35,12 +35,5 @@
   },
   "peerDependencies": {
     "yo": ">=1.0.0"
-  },
-  "bugs": {
-    "url": "https://github.com/amtrack/generator-buildpack/issues"
-  },
-  "homepage": "https://github.com/amtrack/generator-buildpack",
-  "directories": {
-    "test": "test"
   }
 }

@@ -14,19 +14,19 @@
 
 To install generator-buildpack from npm, run:
 
-```
+```bash
 $ npm install -g generator-buildpack
 ```
 
 Finally, initiate the generator:
 
-```
+```bash
 $ mkdir heroku-buildpack-hello
 $ cd $_
 $ yo buildpack
 Tell me about your custom Heroku buildpack.
 [?] Buildpack for: hello
-[?] Your GitHub Username: amtrack
+[?] Would you mind telling me your username on GitHub: amtrack
 ```
 
 ### Info
