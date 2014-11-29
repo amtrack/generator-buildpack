@@ -1,4 +1,4 @@
-image: progrium/cedarish
+image: progrium/cedarish:cedar
 env:
   - LANG=en_US.UTF-8
 script:

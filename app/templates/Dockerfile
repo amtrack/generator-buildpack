@@ -1,7 +1,7 @@
 # Heroku buildpack test
 # Testing a buildpack in a cedarish image
 
-FROM progrium/cedarish
+FROM progrium/cedarish:cedar
 MAINTAINER <%= username %>
 RUN mkdir /buildpack-test
 ADD . /buildpack-test
