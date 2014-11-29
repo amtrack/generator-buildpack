@@ -4,14 +4,14 @@
 #
 #     $ bin/compile <build-dir> <cache-dir> <env-dir>
 
-BUILD_DIR=$1
-CACHE_DIR=$2
-ENV_DIR=$3
+BUILD_DIR="$1"
+CACHE_DIR="$2"
+ENV_DIR="$3"
 
-BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
-ROOT_DIR=$(dirname $BIN_DIR)
+BIN_DIR=$(cd "$(dirname "$0")"; pwd) # absolute path
+ROOT_DIR=$(dirname "$BIN_DIR")
 PROFILE_PATH="$BUILD_DIR/.profile.d/<%= name %>.sh"
-mkdir -p $(dirname $PROFILE_PATH)
+mkdir -p "$(dirname "$PROFILE_PATH")"
 
 # Fail fast and fail hard.
 set -eo pipefail
@@ -20,10 +20,10 @@ set -eo pipefail
 export BUILD_DIR CACHE_DIR ENV_DIR BIN_DIR PROFILE_PATH
 
 # Syntax sugar and other functions
-source $BIN_DIR/utils
+source "$BIN_DIR/utils"
 
 # Switch to the repo's context.
-cd $BUILD_DIR
+cd "$BUILD_DIR"
 export LANG=en_US.UTF-8
 
 # TODO: Write your build steps here

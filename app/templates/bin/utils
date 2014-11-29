@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ $(uname) == Darwin ]; then
+if [[ "$(uname)" == "Darwin" ]]; then
 	sed() { command sed -l "$@"; }
 else
 	sed() { command sed -u "$@"; }
@@ -8,7 +8,7 @@ fi
 
 # Syntax sugar.
 indent() {
-  sed "s/^/       /"
+	sed "s/^/    /"
 }
 
 # Buildpack Steps.
@@ -28,15 +28,28 @@ die() {
 
 # Usage: $ set-env key value
 set-env (){
-	echo "export $1=$2" >> $PROFILE_PATH
+	echo "export $1=$2" >> "$PROFILE_PATH"
 }
 
 # Usage: $ set-default-env key value
 set-default-env (){
-	echo "export $1=\${$1:-$2}" >> $PROFILE_PATH
+	echo "export $1=\${$1:-$2}" >> "$PROFILE_PATH"
 }
 
 # Usage: $ set-default-env key value
 un-set-env (){
-	echo "unset $1" >> $PROFILE_PATH
+	echo "unset $1" >> "$PROFILE_PATH"
+}
+
+export_env_dir() {
+	env_dir="$3"
+	whitelist_regex=${2:-""}
+	blacklist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH)$'}
+	if [[ -d "$env_dir" ]]; then
+		for e in $(ls "$env_dir"); do
+			echo "$e" | grep -E "$whitelist_regex" | grep -qvE "$blacklist_regex" &&
+			export "$e=$(cat "$env_dir/$e")"
+			:
+		done
+	fi
 }

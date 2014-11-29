@@ -4,9 +4,9 @@
 #
 #     $ bin/release <build-dir>
 
-BUILD_DIR=$1
+BUILD_DIR="$1"
 
-BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
+BIN_DIR=$(cd "$(dirname "$0")"; pwd) # absolute path
 
 cat << EOF
 ---

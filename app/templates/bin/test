@@ -25,17 +25,17 @@ testReleaseSimple() {
 
 # Utils
 
-pushd $(dirname 0) >/dev/null
+pushd "$(dirname 0)" > /dev/null
 BP_DIR=$(pwd)
-popd >/dev/null
+popd > /dev/null
 
 source "$BP_DIR/vendor/test-utils"
 
 mktmpdir() {
 	dir=$(mktemp -t testXXXXX)
-	rm -rf $dir
-	mkdir $dir
-	echo $dir
+	rm -rf "$dir"
+	mkdir "$dir"
+	echo "$dir"
 }
 
 detect() {
@@ -46,8 +46,8 @@ compile_dir=""
 
 compile() {
 	compile_dir=$(mktmpdir)
-	if [ -z $2 ]; then
-		cache_dir=$2
+	if [[ -z "$2" ]]; then
+		cache_dir="$2"
 	else
 		cache_dir=$(mktmpdir)
 	fi
@@ -60,7 +60,7 @@ release() {
 }
 
 assertFile() {
-	assertEquals "$1" "$(cat $compile_dir/$2)"
+	assertEquals "$1" "$(cat "$compile_dir/$2")"
 }
 
 source "$BP_DIR/vendor/shunit2"
